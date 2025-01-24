@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.apache.tomcat.jni.SSL.getTime;
 
@@ -43,8 +44,8 @@ public class BookingMaster {
 
     private LocalDate getDate(String startDate) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-        LocalDate dt = LocalDate.parse(startDate,dtf);
-        return dt;
+        dtf = dtf.withLocale(Locale.ENGLISH);
+        return LocalDate.parse(startDate,dtf);
     }
 
     @PostMapping("")
