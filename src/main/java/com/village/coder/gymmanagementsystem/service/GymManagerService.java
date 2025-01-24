@@ -10,9 +10,13 @@ import java.util.List;
 @Service
 public class GymManagerService implements IService{
 
-
+    public List<GymClass> gymClassList= new ArrayList<GymClass>();
+    public List<Booking> bookingList = new ArrayList<>();
     @Override
     public GymClass createGymClass(GymClass gymClass) {
+        GymClass newGymClass = new GymClass();
+        int id = gymClassList.size();
+        newGymClass.setClassId(1);
         return null;
     }
 

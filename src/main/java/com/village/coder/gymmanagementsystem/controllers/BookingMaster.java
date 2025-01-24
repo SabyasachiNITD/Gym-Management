@@ -15,8 +15,7 @@ import java.util.List;
 public class BookingMaster {
     @Autowired
     IService service;
-    public List<GymClass> gymClassList= new ArrayList<GymClass>();
-    public List<Booking> bookingList = new ArrayList<>();
+
 
     @PostMapping("/gymclass")
     public GymClass createClass(@RequestBody GymClass gymClass){
@@ -29,6 +28,6 @@ public class BookingMaster {
 
     @GetMapping("")
     public List<Booking> getAllBookings() {
-        return bookingList;
+        return service.getBookings();
     }
 }
