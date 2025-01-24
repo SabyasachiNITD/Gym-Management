@@ -4,10 +4,13 @@ import com.village.coder.gymmanagementsystem.models.Booking;
 import com.village.coder.gymmanagementsystem.models.GymClass;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class GymManagerService implements IService{
+
+
     @Override
     public GymClass createGymClass(GymClass gymClass) {
         return null;

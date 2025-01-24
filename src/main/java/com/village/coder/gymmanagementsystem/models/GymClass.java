@@ -1,18 +1,14 @@
 package com.village.coder.gymmanagementsystem.models;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Getter
 @Setter
-@Builder
+@Getter
 public class GymClass {
-    private int id;
+    private int classId;
     private String className;
     private LocalDate startDate;
     private LocalDate endDate;
