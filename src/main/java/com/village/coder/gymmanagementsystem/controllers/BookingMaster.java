@@ -7,6 +7,7 @@ import com.village.coder.gymmanagementsystem.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,12 @@ public class BookingMaster {
         return service.createBooking(booking);
     }
 
-    @GetMapping("")
-    public List<Booking> getAllBookings() {
-        return service.getBookings();
+    @GetMapping("{member}")
+    public List<Booking> getAllBookingsByMember(@PathVariable("member") String member) {
+        return service.getAllBookingsByMember(member);
+    }
+    @GetMapping("{date}")
+    public List<Booking> getAllBookingsByMember(@PathVariable("member") LocalDate date) {
+        return service.getAllBookingsByDate(date);
     }
 }
