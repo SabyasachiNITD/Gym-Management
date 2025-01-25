@@ -2,7 +2,6 @@ package com.village.coder.gymmanagementsystem.models;
 
 import lombok.*;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,7 +11,7 @@ public class GymClass {
     private String className;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String startTime;
+    private LocalTime startTime;
     private int duration;
     private int capacity;
 
@@ -47,11 +46,11 @@ public class GymClass {
         this.endDate = endDate;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 

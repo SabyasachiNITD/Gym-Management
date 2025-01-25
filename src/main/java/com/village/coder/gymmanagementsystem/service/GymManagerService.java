@@ -33,6 +33,7 @@ public class GymManagerService implements IService{
             newGymClass.setCapacity(gymClass.getCapacity());
             newGymClass.setStartDate(gymClass.getStartDate());
             newGymClass.setEndDate(gymClass.getEndDate());
+            newGymClass.setStartTime(gymClass.getStartTime());
             gymClassList.put(gymClass.getClassId(),newGymClass);
             return newGymClass;
         }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class BookingMaster {
         gymClass.setEndDate(getDate(gymClassDto.getEndDate()));
         gymClass.setCapacity(gymClassDto.getCapacity());
         gymClass.setDuration(gymClassDto.getDuration());
-        gymClass.setStartTime(gymClassDto.getStartTime());
+        gymClass.setStartTime(this.getTime(gymClassDto.getStartTime()));
         return gymClass;
     }
 
@@ -48,8 +49,12 @@ public class BookingMaster {
                                 .parseCaseInsensitive()
                                 .appendPattern("dd-MMM-yyyy")
                                 .toFormatter(Locale.ENGLISH);
-        System.out.println("startDate: " + startDate);
         return LocalDate.parse(startDate,dtf);
+    }
+    private LocalTime getTime(String startTime) {
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_TIME;
+        LocalTime lt = LocalTime.parse(startTime,dtf);
+        return lt;
     }
 
     @PostMapping("")
