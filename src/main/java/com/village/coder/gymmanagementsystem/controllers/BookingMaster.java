@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -43,8 +44,11 @@ public class BookingMaster {
     }
 
     private LocalDate getDate(String startDate) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-        dtf = dtf.withLocale(Locale.ENGLISH);
+        DateTimeFormatter dtf = new DateTimeFormatterBuilder()
+                                .parseCaseInsensitive()
+                                .appendPattern("dd-MMM-yyyy")
+                                .toFormatter(Locale.ENGLISH);
+        System.out.println("startDate: " + startDate);
         return LocalDate.parse(startDate,dtf);
     }
 
