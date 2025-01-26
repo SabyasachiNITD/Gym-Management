@@ -16,4 +16,10 @@ The apis are as below:
     }
 
 2.http://localhost:8080/bookings/ - post
+Request Body Format:
+    {
+    "classId":102,
+    "memberName":"Sabyasachi",
+    "participationDate":"27-JAN-2024"
+    }
 3.http://localhost:8080/bookings/{member} - GET - accepts member name as PathVariable - string and Date as Request parameter - string

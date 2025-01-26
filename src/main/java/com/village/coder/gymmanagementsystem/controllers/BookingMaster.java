@@ -6,7 +6,6 @@ import com.village.coder.gymmanagementsystem.dtos.GymClassDto;
 import com.village.coder.gymmanagementsystem.models.Booking;
 import com.village.coder.gymmanagementsystem.models.GymClass;
 import com.village.coder.gymmanagementsystem.service.IService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -16,13 +15,16 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
 import java.util.Locale;
 
-import static org.apache.tomcat.jni.SSL.getTime;
 
 @RestController
-@RequestMapping("/bookings")
+@RequestMapping(value = "/bookings")
 public class BookingMaster {
-    @Autowired
+    final
     IService service;
+
+    public BookingMaster(IService service) {
+        this.service = service;
+    }
 
 
     @PostMapping("/gymclass")
@@ -52,8 +54,7 @@ public class BookingMaster {
     }
     private LocalTime getTime(String startTime) {
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_TIME;
-        LocalTime lt = LocalTime.parse(startTime,dtf);
-        return lt;
+        return LocalTime.parse(startTime,dtf);
     }
 
     @PostMapping("")

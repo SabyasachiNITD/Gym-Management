@@ -6,21 +6,15 @@ import com.village.coder.gymmanagementsystem.exceptions.ClassIdNotFoundException
 import com.village.coder.gymmanagementsystem.exceptions.EndDateIsLessThanStartDateException;
 import com.village.coder.gymmanagementsystem.models.Booking;
 import com.village.coder.gymmanagementsystem.models.GymClass;
+import com.village.coder.gymmanagementsystem.models.Store;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class GymManagerService implements IService{
-
-    public Map<Integer,GymClass> gymClassList= new HashMap<>();
-    public Map<String,List<Booking>> bookingList = new HashMap<>();
-    public Map<LocalDate,List<Booking>> bookingDateList = new HashMap<>();
-
     @Override
     public GymClass createGymClass(GymClass gymClass) {
         GymClass newGymClass = new GymClass();
@@ -39,7 +33,7 @@ public class GymManagerService implements IService{
             newGymClass.setStartDate(gymClass.getStartDate());
             newGymClass.setEndDate(gymClass.getEndDate());
             newGymClass.setStartTime(gymClass.getStartTime());
-            gymClassList.put(gymClass.getClassId(),newGymClass);
+            Store.gymClassList.put(gymClass.getClassId(),newGymClass);
             return newGymClass;
         }
         catch(Exception e){
@@ -53,12 +47,12 @@ public class GymManagerService implements IService{
         int classId = booking.getClassId();
         LocalDate participationDate = booking.getParticipationDate();
         try{
-            if(!gymClassList.containsKey(classId)){
+            if(!Store.gymClassList.containsKey(classId)){
                 throw new ClassIdNotFoundException("Class Id Not Found");
             }
-            int classCapacity = gymClassList.get(classId).getCapacity();
-            if(bookingDateList.containsKey(participationDate)){
-                int participantsTillNow = (int) bookingDateList.get(participationDate).stream()
+            int classCapacity = Store.gymClassList.get(classId).getCapacity();
+            if(Store.bookingDateList.containsKey(participationDate)){
+                int participantsTillNow = (int) Store.bookingDateList.get(participationDate).stream()
                         .filter(e -> e.getClassId() == classId).count();
                 if(participantsTillNow == classCapacity){
                     throw new ClassCapacityFullException("class capacity full for the day");
@@ -68,18 +62,18 @@ public class GymManagerService implements IService{
             newBooking.setClassId(classId);
             newBooking.setMemberName(booking.getMemberName());
             newBooking.setParticipationDate(booking.getParticipationDate());
-            List<Booking> bookings = bookingList.get(booking.getMemberName());
+            List<Booking> bookings = Store.bookingList.get(booking.getMemberName());
             if(bookings==null){
                 bookings = new ArrayList<>();
             }
             bookings.add(newBooking);
-            List<Booking> bookingByDate = bookingDateList.get(booking.getParticipationDate());
+            List<Booking> bookingByDate = Store.bookingDateList.get(booking.getParticipationDate());
             if(bookingByDate==null){
                 bookingByDate = new ArrayList<>();
             }
             bookingByDate.add(newBooking);
-            bookingList.put(booking.getMemberName(),bookings);
-            bookingDateList.put(booking.getParticipationDate(),bookingByDate);
+            Store.bookingList.put(booking.getMemberName(),bookings);
+            Store.bookingDateList.put(booking.getParticipationDate(),bookingByDate);
             return newBooking;
         }
         catch (ClassIdNotFoundException | ClassCapacityFullException e) {
@@ -90,11 +84,11 @@ public class GymManagerService implements IService{
 
     @Override
     public List<Booking> getAllBookingsByMember(String member) {
-        return bookingList.get(member);
+        return Store.bookingList.get(member);
     }
 
     @Override
     public List<Booking> getAllBookingsByDate(LocalDate date) {
-        return bookingDateList.get(date);
+        return Store.bookingDateList.get(date);
     }
 }
