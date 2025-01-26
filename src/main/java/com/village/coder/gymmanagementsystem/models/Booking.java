@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 
 public class Booking {
-    int classId;
-    String memberName;
-    LocalDate participationDate;
+    private int classId;
+    private String memberName;
+    private LocalDate participationDate;
 
     public int getClassId() {
         return classId;

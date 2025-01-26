@@ -1,9 +1,6 @@
 package com.village.coder.gymmanagementsystem.service;
 
-import com.village.coder.gymmanagementsystem.exceptions.CapacityLessThenOneException;
-import com.village.coder.gymmanagementsystem.exceptions.ClassCapacityFullException;
-import com.village.coder.gymmanagementsystem.exceptions.ClassIdNotFoundException;
-import com.village.coder.gymmanagementsystem.exceptions.EndDateIsLessThanStartDateException;
+import com.village.coder.gymmanagementsystem.exceptions.*;
 import com.village.coder.gymmanagementsystem.models.Booking;
 import com.village.coder.gymmanagementsystem.models.GymClass;
 import com.village.coder.gymmanagementsystem.models.Store;
@@ -50,10 +47,17 @@ public class GymManagerService implements IService{
             if(!Store.gymClassList.containsKey(classId)){
                 throw new ClassIdNotFoundException("Class Id Not Found");
             }
+            LocalDate startDate = Store.gymClassList.get(classId).getStartDate();
+            LocalDate endDate = Store.gymClassList.get(classId).getEndDate();
+            if(startDate.isAfter(participationDate) || endDate.isBefore(participationDate)){
+                throw new ParticipationDateNotValidException("Particpation Date is not valid");
+            }
             int classCapacity = Store.gymClassList.get(classId).getCapacity();
             if(Store.bookingDateList.containsKey(participationDate)){
                 int participantsTillNow = (int) Store.bookingDateList.get(participationDate).stream()
                         .filter(e -> e.getClassId() == classId).count();
+                System.out.println("classCapacity: " + classCapacity);
+                System.out.println("participantsTillNow: " + participantsTillNow);
                 if(participantsTillNow == classCapacity){
                     throw new ClassCapacityFullException("class capacity full for the day");
                 }
@@ -76,7 +80,7 @@ public class GymManagerService implements IService{
             Store.bookingDateList.put(booking.getParticipationDate(),bookingByDate);
             return newBooking;
         }
-        catch (ClassIdNotFoundException | ClassCapacityFullException e) {
+        catch (ClassIdNotFoundException | ClassCapacityFullException | ParticipationDateNotValidException e) {
             throw new RuntimeException(e);
         }
     }
