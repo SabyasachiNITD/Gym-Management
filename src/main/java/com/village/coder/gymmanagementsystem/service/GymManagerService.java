@@ -50,7 +50,7 @@ public class GymManagerService implements IService{
             LocalDate startDate = Store.gymClassList.get(classId).getStartDate();
             LocalDate endDate = Store.gymClassList.get(classId).getEndDate();
             if(startDate.isAfter(participationDate) || endDate.isBefore(participationDate)){
-                throw new ParticipationDateNotValidException("Particpation Date is not valid");
+                throw new ParticipationDateNotValidException("Participation Date is not valid");
             }
             int classCapacity = Store.gymClassList.get(classId).getCapacity();
             if(Store.bookingDateList.containsKey(participationDate)){
@@ -88,6 +88,8 @@ public class GymManagerService implements IService{
 
     @Override
     public List<Booking> getAllBookingsByMember(String member) {
+        System.out.println("Member: " + member);
+        System.out.println("getAllBookingsByMember: " + Store.bookingList.get(member));
         return Store.bookingList.get(member);
     }
 
