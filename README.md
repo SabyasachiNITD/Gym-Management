@@ -42,7 +42,7 @@ The apis are as below:
     "memberName": "Sabyasachi",
     "participationDate": "2024-01-27"
 }
-3.http://localhost:8080/bookings/{member} - GET - accepts member name as PathVariable - string and Date as Request parameter - string
+3.http://localhost:8080/bookings/{member} - GET - accepts member name as PathVariable
 Request Format : http://localhost:8080/bookings/Sabyasachi
 
 Output Format 
@@ -64,4 +64,24 @@ Output Format
     }
 ]
 
-4.
+4.http://localhost:8080/bookings?date={dd-MMM-yyyy} GET - accepts Date as Request parameter
+
+Request Format: http://localhost:8080/bookings?date=29-JAN-2024
+Output Format:
+[
+    {
+        "classId": 126,
+        "memberName": "Sasmit",
+        "participationDate": "2024-01-29"
+    },
+    {
+        "classId": 126,
+        "memberName": "Sabya",
+        "participationDate": "2024-01-29"
+    },
+    {
+        "classId": 126,
+        "memberName": "Ritesh",
+        "participationDate": "2024-01-29"
+    }
+]
