@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GymManagerService implements IService{
@@ -91,6 +92,14 @@ public class GymManagerService implements IService{
         System.out.println("Member: " + member);
         System.out.println("getAllBookingsByMember: " + Store.bookingList.get(member));
         return Store.bookingList.get(member);
+    }
+
+    @Override
+    public List<Booking> getBookingsByMemberAndDate(String member, LocalDate date) {
+        List<Booking> bookings = Store.bookingList.get(member);
+        return bookings.stream().
+                filter(booking -> booking.getParticipationDate().isEqual(date)).
+                collect(Collectors.toList());
     }
 
     @Override

@@ -11,4 +11,5 @@ public interface IService {
     Booking createBooking(Booking booking);
     List<Booking> getAllBookingsByDate(LocalDate date);
     List<Booking> getAllBookingsByMember(String member);
+    List<Booking> getBookingsByMemberAndDate(String member, LocalDate date);
 }

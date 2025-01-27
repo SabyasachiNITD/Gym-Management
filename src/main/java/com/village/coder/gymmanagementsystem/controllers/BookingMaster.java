@@ -72,12 +72,16 @@ public class BookingMaster {
     }
 
     @GetMapping("{member}")
-    public List<Booking> getAllBookingsByMember(@PathVariable("member") String member) {
-        return service.getAllBookingsByMember(member);
+    public List<Booking> getAllBookingsByMember(@PathVariable("member") String member,
+                                                @RequestParam(required = false) String date) {
+        if(date==null || date.isEmpty())
+            return service.getAllBookingsByMember(member);
+        return service.getBookingsByMemberAndDate(member,getDate(date));
     }
     @GetMapping("")
     public List<Booking> getAllBookingsByDate(@RequestParam String date) {
         LocalDate dt = getDate(date);
         return service.getAllBookingsByDate(dt);
     }
+
 }
